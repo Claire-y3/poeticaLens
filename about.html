@@ -1,0 +1,245 @@
+<!-- Reference: https://www.w3schools.com/howto/howto_js_slideshow_gallery.asp -->
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face { font-family: press-regular; 
+  src: url('./font/PressStart2P-Regular.ttf'); } 
+
+h1{
+    font-size: 20px;
+}
+h2{
+    font-size: 25px;
+}
+body {
+    font-family: press-regular;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 14.28%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+a:link{
+  color:black;
+  text-decoration: none;
+}
+
+a:visited{
+  color:white;
+  text-decoration: none;
+}
+
+a:hover{
+  color:white;
+  background-color:black;
+  text-decoration: line-through;
+}
+
+.navigation{
+  width: 100%;
+  height: 100px;
+  background-clip: content-box;
+  background-image: linear-gradient(black,white);
+  position: sticky; 
+  top:0;
+}
+.title{
+  text-align: center;
+  padding-top: 20px;
+} 
+</style>
+<body>
+ <div class="navigation">
+    <div class="title"><h1><a href="index.html">→ Home 📸</a></h1></div>
+</div>
+<h2 style="text-align:center">PoeticaLens Verse Gallery</h2>
+
+<div class="container">
+  <div class="mySlides">
+    <div class="numbertext">1 / 7</div>
+    <img src="assets/1.PNG" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">2 / 7</div>
+    <img src="assets/2.JPG" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">3 / 7</div>
+    <img src="assets/3.PNG" style="width:100%">
+  </div>
+    
+  <div class="mySlides">
+    <div class="numbertext">4 / 7</div>
+    <img src="assets/4.PNG" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    <div class="numbertext">5 / 7</div>
+    <img src="assets/5.JPG" style="width:100%">
+  </div>
+    
+  <div class="mySlides">
+    <div class="numbertext">6 / 7</div>
+    <img src="assets/6.PNG" style="width:100%">
+  </div>
+  <div class="mySlides">
+    <div class="numbertext">7 / 7</div>
+    <img src="assets/7.PNG" style="width:100%">
+  </div>
+    
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
+  <div class="caption-container">
+    <p id="caption"></p>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <img class="demo cursor" src="assets/1_.PNG" style="width:100%" onclick="currentSlide(1)" alt="A Moment Frozen in Time">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="assets/2_.JPG" style="width:100%" onclick="currentSlide(2)" alt="Portrait">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="assets/3_.PNG" style="width:100%" onclick="currentSlide(3)" alt="Studio">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="assets/4_.PNG" style="width:100%" onclick="currentSlide(4)" alt="The Broken Figurines">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="assets/5_.JPG" style="width:100%" onclick="currentSlide(5)" alt="The Dance of Life">
+    </div>    
+    <div class="column">
+      <img class="demo cursor" src="assets/6_.PNG" style="width:100%" onclick="currentSlide(6)" alt="A Shoe's Tale">
+    </div>
+    <div class="column">
+    <img class="demo cursor" src="assets/7_.PNG" style="width:100%" onclick="currentSlide(7)" alt="Shadow of the Skull">
+    </div>
+  </div>
+</div>
+
+<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("demo");
+  let captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,164 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+@font-face { font-family: caveat-regular; 
+  src: url('./font/Caveat-Regular.ttf'); } 
+@font-face { font-family: press-regular; 
+  src: url('./font/PressStart2P-Regular.ttf'); } 
+@font-face { font-family: MaShanZheng-regular; 
+  src: url('./font/MaShanZheng-Regular.ttf'); } 
+h1{
+  font-size: 37px;
+  font-family: press-regular;
+  color:white;
+  margin-top: 0px;
+  padding-top: 20px;
+}
+h3{
+  font-size: 30px;
+  font-family: caveat-regular;
+}
+h4{
+  font-size: 23px;
+  font-family:MaShanZheng-regular;
+  text-align:right;
+  padding-right: 50px;
+}
+h5{
+  font-size: 30px;
+  line-height: 30px;
+  font-family: caveat-regular;
+}
+
+body{
+  margin:0;
+  /* background-color:hsla(47, 96%, 70%, 0.526); */
+  background-color: #fff;
+  padding:0;
+  font-family:caveat-regular;
+}
+a:link{
+  color:black;
+  text-decoration: none;
+}
+
+a:visited{
+  color:black;
+  text-decoration: none;
+}
+
+a:hover{
+  color:#ffffff;
+  background-color:black;
+  /* display:inline-block;
+  padding: 0;
+  text-align: center; */
+  text-decoration: line-through;
+}
+
+.navigation{
+  width: 100%;
+  height: 80px;
+  background-clip: content-box;
+  background-image: linear-gradient(black,white);
+  position: sticky; 
+  top:0;
+}
+.title{
+  text-align: center;
+} 
+/* .direction{
+  text-align: right;
+  font-family:press-regular;
+  font-size:15px;
+} */
+
+/* instructions */
+.centerBox{
+  background-color: #fff;
+  width: 100%;
+  margin: auto;
+  line-height: 40px;
+  text-align: center;
+  align-items: center;
+  /* border: 3px solid; */
+}
+.item1{
+  color:black;
+  background-clip: content-box;
+  padding-top: 100px;
+  height:350px;
+  font-size: 20px;
+  font-family: press-regular;
+  /* border: 5px solid red; */
+}
+.item2{
+  background-color:black;
+  color: white;
+  background-clip: content-box;
+  padding-top: 150px;
+  height:550px;
+    /* border: 5px solid red; */
+}
+.item3{
+  background-color:white;
+  color: black;
+  background-clip: content-box;
+  height:20px;
+  font-family: press-regular;
+  font-size: 30px;
+  text-align: center;
+}
+.item4{
+  background-color:white;
+  color: black;
+  background-clip: content-box;
+  padding-top: 50px;
+  padding-left: 50px;
+  height:500px;
+  font-size: 20px;
+  text-align: left;
+  line-height: 10px;
+}
+.item5{
+  background-color:white;
+  color: black;
+  background-clip: content-box;
+  padding-left: 200px;
+  padding-right: 200px;
+  height:260px;
+  text-align: left;
+}
+* {
+  box-sizing: border-box;
+}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.item4::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:600px) {
+  .column {
+    width: 100%;
+  }
+}
+#canvasContainer{
+  margin:0;
+  padding:0;
+  width:100%;
+}
+
