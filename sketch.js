@@ -35,7 +35,7 @@ function preload(){
 
 function setup() {
   // createCanvas(1440,900);
-  createCanvas(windowWidth,1000);
+  createCanvas(windowWidth, windowHeight);
   background(0);
   video = createCapture(VIDEO);
   // video.size(975,760); 
