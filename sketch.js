@@ -30,12 +30,12 @@ function preload(){
   shutterSound=loadSound('sound/shutter.wav');
   fontPoem = loadFont('font/Caveat-Regular.ttf');
   fontDigital= loadFont('font/PressStart2P-Regular.ttf');
-  camFrame = loadImage('assets/camFrame2.png');
+  camFrame = loadImage('assets/iphoneFrame1.png');
 }
 
 function setup() {
   // createCanvas(1440,900);
-  createCanvas(windowWidth,900);
+  createCanvas(windowWidth,1000);
   background(0);
   video = createCapture(VIDEO);
   // video.size(975,760); 
@@ -64,9 +64,11 @@ function draw() {
   // background(0);
   
   // reads in complete lines and prints them at the bottom of the canvas
-  let str = port.readUntil("\n");
-  if (str.length > 0) {
+  let str;
+  str = port.readUntil("\n");
+  while (str.length > 0) {
     buttonVal = parseInt(str[0]);
+    str = port.readUntil("\n");
   }
 
 // ---------------Check if buttonVal has changed from 1 to 0--------------------
