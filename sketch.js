@@ -194,9 +194,9 @@ function drawCaption() {
   let bbox = fontPoem.textBounds(captions, textX, textY, 35);
 
   // Adjust the position of the red rectangle based on the bounding box
-  let rectX = width/4; 
-  let rectY = 300; 
-  let rectWidth = bbox.w + 200; 
+  let rectX = 100; 
+  let rectY = 100; 
+  let rectWidth = width/2; 
   let rectHeight = height; 
 
   fill(0, 150);
@@ -242,8 +242,8 @@ function drawBlinks() {
     textSize(50);
     textAlign(CENTER);
     textFont(fontDigital);
-    text('Starting prediction,', width / 2, height / 2 - 45);
-    text('this might take a bit', width / 2, height / 2 + 55);
+    text('Starting prediction,', width / 2-100, height / 2 - 45);
+    text('this might take a bit', width / 2-100, height / 2 + 55);
   }
 } 
 function drawInstructions(){
