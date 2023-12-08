@@ -80,6 +80,7 @@ function draw() {
   if (preButtonVal == 1 && buttonVal == 0) {
     if (state == CAMERA) {
       // Execute code for CAMERA state
+      console.log("Hi")
       state = PREDICTION;
       photo = get(50, 0, windowWidth-500, windowHeight-300);
     // -------------------------img-to-text model-------------------------------------
