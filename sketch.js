@@ -43,9 +43,9 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   background(0);
   video = createCapture(VIDEO);
-  // video.size(975,760); 
+  // video.size( windowWidth-300, (windowWidth-300)*0.75)); 
   video.hide();
-  offscreenBuffer = createGraphics(975,760); // Create an offscreen buffer
+  offscreenBuffer = createGraphics( windowWidth-300, (windowWidth-300)*0.75); // Create an offscreen buffer
   
   port = createSerial();
   
@@ -81,7 +81,7 @@ function draw() {
     if (state == CAMERA) {
       // Execute code for CAMERA state
       state = PREDICTION;
-      photo = get(50, 0, width-100, height-50);
+      photo = get(50, 0, windoWidth-300, windowHeight-100);
     // -------------------------img-to-text model-------------------------------------
     let modelInput
     = {
@@ -121,11 +121,11 @@ function draw() {
   // ------------------------state info------------------------------------------
   if (state == CAMERA){
     push();
-    translate(1130, 0);
+    translate(windowWidth-300, 0);
     scale(-1, 1);
-    offscreenBuffer.image(video, 0,0, 975,760);
+    offscreenBuffer.image(video, 0,0,  windowWidth-300, (windowWidth-300)*0.75);
     offscreenBuffer.filter(POSTERIZE, 3);
-    image(offscreenBuffer, 0, 0, 975,760);
+    image(offscreenBuffer, 0, 0,  windowWidth-300, (windowWidth-300)*0.75);
     pop();
     
     isBlinking = false;
@@ -193,12 +193,11 @@ function drawCaption() {
   let bbox = fontPoem.textBounds(captions, textX, textY, 35);
 
   // Adjust the position of the red rectangle based on the bounding box
-  let rectX = 50; // Adjust this value as needed
-  let rectY = 50; // Adjust this value as needed
-  let rectWidth = bbox.w + 80; // Adjust this value as needed
-  let rectHeight = height; // Adjust this value as needed
+  let rectX = 50; 
+  let rectY = 50; 
+  let rectWidth = bbox.w + 80; 
+  let rectHeight = height; 
 
-  // Draw the red rectangle
   fill(0, 150);
   rect(rectX, rectY, rectWidth, rectHeight);
   
@@ -221,7 +220,7 @@ function drawBlinks() {
     translate(1130, 0);
     scale(-1, 1);
     offscreenBuffer.filter(THRESHOLD, 0.5);
-    image(offscreenBuffer, 0, 0, 975,760);
+    image(offscreenBuffer, 0, 0,  windowWidth-300, (windowWidth-300)*0.75);
     pop();
     
     // Draw the blinking effect
