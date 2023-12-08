@@ -81,7 +81,7 @@ function draw() {
     if (state == CAMERA) {
       // Execute code for CAMERA state
       state = PREDICTION;
-      photo = get(50, 0, windoWidth-300, windowHeight-100);
+      photo = get(50, 0, windoWidth-300, windowHeight-300);
     // -------------------------img-to-text model-------------------------------------
     let modelInput
     = {
@@ -193,9 +193,9 @@ function drawCaption() {
   let bbox = fontPoem.textBounds(captions, textX, textY, 35);
 
   // Adjust the position of the red rectangle based on the bounding box
-  let rectX = 50; 
-  let rectY = 50; 
-  let rectWidth = bbox.w + 80; 
+  let rectX = width/4; 
+  let rectY = 300; 
+  let rectWidth = bbox.w + 200; 
   let rectHeight = height; 
 
   fill(0, 150);
@@ -204,7 +204,7 @@ function drawCaption() {
   fill(255);
   noStroke();
 
-  textSize(35);
+  textSize(45);
   textAlign(CENTER,CENTER);
   textWrap(WORD);
   textFont(fontPoem);
@@ -241,8 +241,8 @@ function drawBlinks() {
     textSize(50);
     textAlign(CENTER);
     textFont(fontDigital);
-    text('Starting prediction,', width / 2, height / 2 - 25);
-    text('this might take a bit', width / 2, height / 2 + 45);
+    text('Starting prediction,', width / 2, height / 2 - 45);
+    text('this might take a bit', width / 2, height / 2 + 55);
   }
 } 
 function drawInstructions(){
@@ -251,11 +251,11 @@ function drawInstructions(){
   textFont(fontDigital);
   textSize(35);
   if(state == OUTCOME){
-    text("Insturction: Want another shot?",100,height-70);
-    text("Press the shutter ONCE again: Back to the camera",360,height-30);
+    text("Insturction: Want another shot?",200,height-70);
+    text("Press the shutter ONCE again: Back to the camera",460,height-30);
   }else{
-    text("Instruction: Click the shutter ONCE to capture a moment,",100,height-70);
-    text("Await the alchemy for about 15 heartbeats...",360,height-30);
+    text("Instruction: Click the shutter ONCE to capture a moment,",200,height-70);
+    text("Await the alchemy for about 15 heartbeats...",460,height-30);
   }  
 }
 
