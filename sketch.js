@@ -200,7 +200,8 @@ function drawCaption() {
   let rectHeight = height; 
 
   fill(0, 150);
-  rect(rectX, rectY, rectWidth, rectHeight);
+  // rect(rectX, rectY, rectWidth, rectHeight);
+  rect(0,0,width/2,height);
   
   fill(255);
   noStroke();
@@ -247,6 +248,9 @@ function drawBlinks() {
   }
 } 
 function drawInstructions(){
+  fill(0,50);
+  noStroke();
+  rect(0,height-120,width,150);
   fill(255);
   textAlign(LEFT);
   textFont(fontDigital);
