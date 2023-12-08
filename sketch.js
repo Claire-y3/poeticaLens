@@ -117,14 +117,14 @@ function draw() {
     push();
     translate(1130, 0);
     scale(-1, 1);
-    offscreenBuffer.image(video, 130,165, 975,760);
+    offscreenBuffer.image(video, 0,0, 975,760);
     offscreenBuffer.filter(POSTERIZE, 3);
     image(offscreenBuffer, 0, 0, 975,760);
     pop();
     
     isBlinking = false;
     captions = "";
-    image(camFrame,-20,-350,4480,2520);
+    image(camFrame,0,0,windowWidth,windowHeight);
     drawInstructions();
   }
   
