@@ -26,6 +26,10 @@ let OUTCOME = 3;
 
 let state = CAMERA;
 
+let scrWidth = 4480;
+let scrHeight=2520;
+
+
 function preload(){
   shutterSound=loadSound('sound/shutter.wav');
   fontPoem = loadFont('font/Caveat-Regular.ttf');
@@ -35,7 +39,8 @@ function preload(){
 
 function setup() {
   // createCanvas(1440,900);
-  createCanvas(windowWidth, windowHeight);
+  // createCanvas(scrWidth,scrHeight);
+  createCanvas(windowWidth,windowHeight);
   background(0);
   video = createCapture(VIDEO);
   // video.size(975,760); 
@@ -119,7 +124,7 @@ function draw() {
     
     isBlinking = false;
     captions = "";
-    image(camFrame,-20,-350,1540, 1540);
+    image(camFrame,-20,-350,4480,2520);
     drawInstructions();
   }
   
@@ -140,7 +145,7 @@ function draw() {
     isBlinking = false;
     fill(0);
     rect(0, 0, width, height);
-    image(photo, width / 2, height / 4, width / 2, height / 2);
+    image(photo, 0, 0, width, height);
     drawCaption();
     drawInstructions();
     saveBtn = createButton('Save')
@@ -175,13 +180,31 @@ function donePredicting(results) {
 }
 
 function drawCaption() {
+  let textX = 20; // X position of the text
+  let textY = height / 2; // Y position of the text
+
+  // Get the bounding box of the text
+  let bbox = fontPoem.textBounds(captions, textX, textY, 35);
+
+  // Adjust the position of the red rectangle based on the bounding box
+  let rectX = 50; // Adjust this value as needed
+  let rectY = 50; // Adjust this value as needed
+  let rectWidth = bbox.w + 80; // Adjust this value as needed
+  let rectHeight = height; // Adjust this value as needed
+
+  // Draw the red rectangle
+  fill(255, 0, 0, 150);
+  rect(rectX, rectY, rectWidth, rectHeight);
+  
   fill(255);
   noStroke();
+
   textSize(35);
   textAlign(CENTER,CENTER);
   textWrap(WORD);
   textFont(fontPoem);
   text(captions, 20, height/2, width/2);
+
 }
 
 function drawBlinks() {
@@ -224,10 +247,10 @@ function drawInstructions(){
   textSize(20);
   if(state == OUTCOME){
     text("Insturction: Want another shot?",width/2+30,height/2+260);
-    text("Press any key: Back to the camera",width/2+30,height/2+290)
+    text("Press the shutter ONCE again: Back to the camera",width/2+30,height/2+290)
   }else{
-    text("Instruction: Click the shutter to capture a moment,",100,865);
-    text("Await the alchemy for about 15 heartbeats...",360,890)
+    text("Instruction: Click the shutter ONCE to capture a moment,",100,height-50);
+    text("Await the alchemy for about 15 heartbeats...",360,height-30);
   }  
 }
 
