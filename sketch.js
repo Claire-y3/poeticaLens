@@ -18,7 +18,7 @@ let connectBtn;
 let buttonVal;
 let preButtonVal = 0;
 
-let saveBtn;
+// let saveBtn;
 
 let CAMERA = 1;
 let PREDICTION = 2;
@@ -78,11 +78,11 @@ function draw() {
 
 // ---------------Check if buttonVal has changed from 1 to 0--------------------
   if (preButtonVal == 1 && buttonVal == 0) {
-    // background(0, 0, 255);
-    state = PREDICTION;
-    photo = get(0,0,1440,840);
-
-// -------------------------img-to-text model-------------------------------------
+    if (state == CAMERA) {
+      // Execute code for CAMERA state
+      state = PREDICTION;
+      photo = get(50, 0, width-100, height-50);
+    // -------------------------img-to-text model-------------------------------------
     let modelInput
     = {
       image: get(),
@@ -97,6 +97,12 @@ function draw() {
       donePredicting
     );
     console.log('Starting prediction, this might take a bit');
+    } else if (state == OUTCOME) {
+      // Execute code for OUTCOME state
+      background(0);
+      state = CAMERA;
+      captions = "";
+    }
   }
   preButtonVal = buttonVal;
   
@@ -132,7 +138,7 @@ function draw() {
     isBlinking = true;
     drawBlinks();
     drawInstructions();
-    image(camFrame,-20,-350,1540, 1540);
+    image(camFrame,0,0,windowWidth,windowHeight);
     if (!soundPlayed) {
       shutterSound.play();
       soundPlayed = true;
@@ -145,18 +151,18 @@ function draw() {
     isBlinking = false;
     fill(0);
     rect(0, 0, width, height);
-    image(photo, 0, 0, width, height);
+    image(photo, 0, 0, width-100, height);
     drawCaption();
     drawInstructions();
-    saveBtn = createButton('Save')
-    saveBtn.position(width/2+30,height/2+320);
-    saveBtn.mousePressed(savePoem);
+    // saveBtn = createButton('Save')
+    // saveBtn.position(width/2+30,height/2+320);
+    // saveBtn.mousePressed(savePoem);
   }
 }
 
-function savePoem(){
-  saveCanvas('PoeticaLens', 'png');
-}
+// function savePoem(){
+//   saveCanvas('PoeticaLens', 'png');
+// }
 
 function connectBtnClick() {
   if (!port.opened()) {
@@ -166,11 +172,11 @@ function connectBtnClick() {
   }
 }
 
-function keyPressed() {
-  background(0);
-  state = CAMERA;
-  captions = "";
-}
+// function keyPressed() {
+//   background(0);
+//   state = CAMERA;
+//   captions = "";
+// }
 
 function donePredicting(results) {
   console.log(results);
@@ -193,7 +199,7 @@ function drawCaption() {
   let rectHeight = height; // Adjust this value as needed
 
   // Draw the red rectangle
-  fill(255, 0, 0, 150);
+  fill(0, 150);
   rect(rectX, rectY, rectWidth, rectHeight);
   
   fill(255);
@@ -233,23 +239,23 @@ function drawBlinks() {
     }
 
     fill(random(255), random(255), random(255));
-    textSize(25);
+    textSize(50);
     textAlign(CENTER);
     textFont(fontDigital);
-    text('Starting prediction,', width / 2-150, height / 2 - 15);
-    text('this might take a bit', width / 2-160, height / 2 + 35);
+    text('Starting prediction,', width / 2, height / 2 - 25);
+    text('this might take a bit', width / 2, height / 2 + 45);
   }
 } 
 function drawInstructions(){
   fill(255);
   textAlign(LEFT);
   textFont(fontDigital);
-  textSize(20);
+  textSize(35);
   if(state == OUTCOME){
-    text("Insturction: Want another shot?",width/2+30,height/2+260);
-    text("Press the shutter ONCE again: Back to the camera",width/2+30,height/2+290)
+    text("Insturction: Want another shot?",100,height-70);
+    text("Press the shutter ONCE again: Back to the camera",360,height-30);
   }else{
-    text("Instruction: Click the shutter ONCE to capture a moment,",100,height-50);
+    text("Instruction: Click the shutter ONCE to capture a moment,",100,height-70);
     text("Await the alchemy for about 15 heartbeats...",360,height-30);
   }  
 }
