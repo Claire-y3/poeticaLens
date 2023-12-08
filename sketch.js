@@ -43,9 +43,9 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   background(0);
   video = createCapture(VIDEO);
-  // video.size( windowWidth-200, (windowWidth-200)*0.75)); 
+  // video.size( windowWidth-300, (windowWidth-300)*0.75)); 
   video.hide();
-  offscreenBuffer = createGraphics( windowWidth-200, (windowWidth-200)*0.75); // Create an offscreen buffer
+  offscreenBuffer = createGraphics( windowWidth-300, (windowWidth-300)*0.75); // Create an offscreen buffer
   
   port = createSerial();
   
@@ -121,11 +121,11 @@ function draw() {
   // ------------------------state info------------------------------------------
   if (state == CAMERA){
     push();
-    translate(windowWidth-200, 0);
+    translate(windowWidth-300, 0);
     scale(-1, 1);
-    offscreenBuffer.image(video, 0,0,  windowWidth-200, (windowWidth-200)*0.75);
+    offscreenBuffer.image(video, 0,0,  windowWidth-300, (windowWidth-300)*0.75);
     offscreenBuffer.filter(POSTERIZE, 3);
-    image(offscreenBuffer, 0, 0,  windowWidth-200, (windowWidth-200)*0.75);
+    image(offscreenBuffer, 0, 0,  windowWidth-300, (windowWidth-300)*0.75);
     pop();
     
     isBlinking = false;
@@ -217,10 +217,10 @@ function drawBlinks() {
 
   if (isBlinking) {
     push();
-    translate(1130, 0);
+    translate(windowWidth-300, 0);
     scale(-1, 1);
     offscreenBuffer.filter(THRESHOLD, 0.5);
-    image(offscreenBuffer, 0, 0,  windowWidth-200, (windowWidth-200)*0.75);
+    image(offscreenBuffer, 0, 0,  windowWidth-300, (windowWidth-300)*0.75);
     pop();
     
     // Draw the blinking effect
