@@ -38,14 +38,6 @@ function preload(){
 }
 
 function setup() {
-<<<<<<< HEAD
-  createCanvas(windowWidth,windowHeight);
-  background(0);
-  video = createCapture(VIDEO);
-  // video.size(windowWidth-200, (windowWidth-200)*0.75); 
-  video.hide();
-  offscreenBuffer = createGraphics(windowWidth-200, (windowWidth-200)*0.75); // Create an offscreen buffer
-=======
   // createCanvas(1440,900);
   // createCanvas(scrWidth,scrHeight);
   createCanvas(windowWidth,windowHeight);
@@ -54,7 +46,6 @@ function setup() {
   // video.size( windowWidth-500, (windowWidth-500)*0.75)); 
   video.hide();
   offscreenBuffer = createGraphics(windowWidth-500, (windowWidth-500)*0.75); // Create an offscreen buffer
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   
   port = createSerial();
   
@@ -131,28 +122,16 @@ function draw() {
   // ------------------------state info------------------------------------------
   if (state == CAMERA){
     push();
-<<<<<<< HEAD
-    translate(width-200, 0);
-    scale(-1, 1);
-    offscreenBuffer.image(video, 0,0, windowWidth-200, (windowWidth-200)*0.75);
-    offscreenBuffer.filter(POSTERIZE, 3);
-    image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
-=======
     translate(windowWidth-500, 0);
     scale(-1, 1);
     offscreenBuffer.image(video, 0,0,  windowWidth-500, (windowWidth-500)*0.75);
     offscreenBuffer.filter(POSTERIZE, 3);
     image(offscreenBuffer, 0, 0,  windowWidth-500, (windowWidth-500)*0.75);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     pop();
     
     isBlinking = false;
     captions = "";
-<<<<<<< HEAD
-    image(camFrame,0,0,1440, 900);
-=======
     image(camFrame,0,0,windowWidth,windowHeight);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     drawInstructions();
   }
   
@@ -160,11 +139,7 @@ function draw() {
     isBlinking = true;
     drawBlinks();
     drawInstructions();
-<<<<<<< HEAD
-    image(camFrame,0,0,1440, 900);
-=======
     image(camFrame,0,0,windowWidth,windowHeight);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     if (!soundPlayed) {
       shutterSound.play();
       soundPlayed = true;
@@ -212,11 +187,6 @@ function donePredicting(results) {
 }
 
 function drawCaption() {
-<<<<<<< HEAD
-  fill(0, 150);
-  rect(0,0,width/2,height);
-
-=======
   let textX = 20; // X position of the text
   let textY = height / 2; // Y position of the text
 
@@ -233,7 +203,6 @@ function drawCaption() {
   // rect(rectX, rectY, rectWidth, rectHeight);
   rect(0,0,width/2,height);
   
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   fill(255);
   noStroke();
 
@@ -250,17 +219,10 @@ function drawBlinks() {
 
   if (isBlinking) {
     push();
-<<<<<<< HEAD
-    translate(windowWidth-200, 0);
-    scale(-1, 1);
-    offscreenBuffer.filter(THRESHOLD, 0.5);
-    image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
-=======
     translate(windowWidth-500, 0);
     scale(-1, 1);
     offscreenBuffer.filter(THRESHOLD, 0.5);
     image(offscreenBuffer, 0, 0,  windowWidth-500, (windowWidth-500)*0.75);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     pop();
     
     // Draw the blinking effect
@@ -288,29 +250,17 @@ function drawBlinks() {
 function drawInstructions(){
   fill(0,50);
   noStroke();
-<<<<<<< HEAD
-  rect(0,height-80,width,80);
-=======
   rect(0,height-120,width,150);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   fill(255);
   textAlign(LEFT);
   textFont(fontDigital);
   textSize(35);
   if(state == OUTCOME){
-<<<<<<< HEAD
-    text("Insturction: Want another shot?", 100,height-35);
-    text("Press any key: Back to the camera",360,height-10)
-  }else{
-    text("Instruction: Click the shutter to capture a moment,",100,height-35);
-    text("Await the alchemy for about 15 heartbeats...",360,height-10)
-=======
     text("Insturction: Want another shot?",200,height-70);
     text("Press the shutter ONCE again: Back to the camera",460,height-30);
   }else{
     text("Instruction: Click the shutter ONCE to capture a moment,",200,height-70);
     text("Await the alchemy for about 15 heartbeats...",460,height-30);
->>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   }  
 }
 
