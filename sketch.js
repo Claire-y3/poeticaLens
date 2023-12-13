@@ -30,17 +30,16 @@ function preload(){
   shutterSound=loadSound('sound/shutter.wav');
   fontPoem = loadFont('font/Caveat-Regular.ttf');
   fontDigital= loadFont('font/PressStart2P-Regular.ttf');
-  camFrame = loadImage('assets/camFrame2.png');
+  camFrame = loadImage('assets/iphoneFrame1.png');
 }
 
 function setup() {
-  // createCanvas(1440,900);
-  createCanvas(windowWidth,900);
+  createCanvas(windowWidth,windowHeight);
   background(0);
   video = createCapture(VIDEO);
-  // video.size(975,760); 
+  // video.size(windowWidth-200, (windowWidth-200)*0.75); 
   video.hide();
-  offscreenBuffer = createGraphics(975,760); // Create an offscreen buffer
+  offscreenBuffer = createGraphics(windowWidth-200, (windowWidth-200)*0.75); // Create an offscreen buffer
   
   port = createSerial();
   
@@ -64,9 +63,11 @@ function draw() {
   // background(0);
   
   // reads in complete lines and prints them at the bottom of the canvas
-  let str = port.readUntil("\n");
-  if (str.length > 0) {
+  let str;
+  str = port.readUntil("\n");
+  while (str.length > 0) {
     buttonVal = parseInt(str[0]);
+    str = port.readUntil("\n");
   }
 
 // ---------------Check if buttonVal has changed from 1 to 0--------------------
@@ -108,16 +109,16 @@ function draw() {
   // ------------------------state info------------------------------------------
   if (state == CAMERA){
     push();
-    translate(1130, 0);
+    translate(width-200, 0);
     scale(-1, 1);
-    offscreenBuffer.image(video, 130,165, 975,760);
+    offscreenBuffer.image(video, 0,0, windowWidth-200, (windowWidth-200)*0.75);
     offscreenBuffer.filter(POSTERIZE, 3);
-    image(offscreenBuffer, 0, 0, 975,760);
+    image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
     pop();
     
     isBlinking = false;
     captions = "";
-    image(camFrame,-20,-350,1540, 1540);
+    image(camFrame,0,0,1440, 900);
     drawInstructions();
   }
   
@@ -125,7 +126,7 @@ function draw() {
     isBlinking = true;
     drawBlinks();
     drawInstructions();
-    image(camFrame,-20,-350,1540, 1540);
+    image(camFrame,0,0,1440, 900);
     if (!soundPlayed) {
       shutterSound.play();
       soundPlayed = true;
@@ -138,7 +139,7 @@ function draw() {
     isBlinking = false;
     fill(0);
     rect(0, 0, width, height);
-    image(photo, width / 2, height / 4, width / 2, height / 2);
+    image(photo, 0, 0, width-100, height);
     drawCaption();
     drawInstructions();
     saveBtn = createButton('Save')
@@ -159,11 +160,11 @@ function connectBtnClick() {
   }
 }
 
-function keyPressed() {
-  background(0);
-  state = CAMERA;
-  captions = "";
-}
+// function keyPressed() {
+//   background(0);
+//   state = CAMERA;
+//   captions = "";
+// }
 
 function donePredicting(results) {
   console.log(results);
@@ -173,6 +174,9 @@ function donePredicting(results) {
 }
 
 function drawCaption() {
+  fill(0, 150);
+  rect(0,0,width/2,height);
+
   fill(255);
   noStroke();
   textSize(35);
@@ -187,10 +191,10 @@ function drawBlinks() {
 
   if (isBlinking) {
     push();
-    translate(1130, 0);
+    translate(windowWidth-200, 0);
     scale(-1, 1);
     offscreenBuffer.filter(THRESHOLD, 0.5);
-    image(offscreenBuffer, 0, 0, 975,760);
+    image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
     pop();
     
     // Draw the blinking effect
@@ -216,16 +220,19 @@ function drawBlinks() {
   }
 } 
 function drawInstructions(){
+  fill(0,50);
+  noStroke();
+  rect(0,height-80,width,80);
   fill(255);
   textAlign(LEFT);
   textFont(fontDigital);
   textSize(20);
   if(state == OUTCOME){
-    text("Insturction: Want another shot?",width/2+30,height/2+260);
-    text("Press any key: Back to the camera",width/2+30,height/2+290)
+    text("Insturction: Want another shot?", 100,height-35);
+    text("Press any key: Back to the camera",360,height-10)
   }else{
-    text("Instruction: Click the shutter to capture a moment,",100,865);
-    text("Await the alchemy for about 15 heartbeats...",360,890)
+    text("Instruction: Click the shutter to capture a moment,",100,height-35);
+    text("Await the alchemy for about 15 heartbeats...",360,height-10)
   }  
 }
 
