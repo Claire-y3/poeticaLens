@@ -18,13 +18,17 @@ let connectBtn;
 let buttonVal;
 let preButtonVal = 0;
 
-let saveBtn;
+// let saveBtn;
 
 let CAMERA = 1;
 let PREDICTION = 2;
 let OUTCOME = 3;
 
 let state = CAMERA;
+
+let scrWidth = 4480;
+let scrHeight=2520;
+
 
 function preload(){
   shutterSound=loadSound('sound/shutter.wav');
@@ -34,12 +38,23 @@ function preload(){
 }
 
 function setup() {
+<<<<<<< HEAD
   createCanvas(windowWidth,windowHeight);
   background(0);
   video = createCapture(VIDEO);
   // video.size(windowWidth-200, (windowWidth-200)*0.75); 
   video.hide();
   offscreenBuffer = createGraphics(windowWidth-200, (windowWidth-200)*0.75); // Create an offscreen buffer
+=======
+  // createCanvas(1440,900);
+  // createCanvas(scrWidth,scrHeight);
+  createCanvas(windowWidth,windowHeight);
+  background(0);
+  video = createCapture(VIDEO);
+  // video.size( windowWidth-500, (windowWidth-500)*0.75)); 
+  video.hide();
+  offscreenBuffer = createGraphics(windowWidth-500, (windowWidth-500)*0.75); // Create an offscreen buffer
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   
   port = createSerial();
   
@@ -72,11 +87,12 @@ function draw() {
 
 // ---------------Check if buttonVal has changed from 1 to 0--------------------
   if (preButtonVal == 1 && buttonVal == 0) {
-    // background(0, 0, 255);
-    state = PREDICTION;
-    photo = get(0,0,1440,840);
-
-// -------------------------img-to-text model-------------------------------------
+    if (state == CAMERA) {
+      // Execute code for CAMERA state
+      console.log("Hi")
+      state = PREDICTION;
+      photo = get(50, 0, windowWidth-500, windowHeight-300);
+    // -------------------------img-to-text model-------------------------------------
     let modelInput
     = {
       image: get(),
@@ -91,6 +107,12 @@ function draw() {
       donePredicting
     );
     console.log('Starting prediction, this might take a bit');
+    } else if (state == OUTCOME) {
+      // Execute code for OUTCOME state
+      background(0);
+      state = CAMERA;
+      captions = "";
+    }
   }
   preButtonVal = buttonVal;
   
@@ -109,16 +131,28 @@ function draw() {
   // ------------------------state info------------------------------------------
   if (state == CAMERA){
     push();
+<<<<<<< HEAD
     translate(width-200, 0);
     scale(-1, 1);
     offscreenBuffer.image(video, 0,0, windowWidth-200, (windowWidth-200)*0.75);
     offscreenBuffer.filter(POSTERIZE, 3);
     image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
+=======
+    translate(windowWidth-500, 0);
+    scale(-1, 1);
+    offscreenBuffer.image(video, 0,0,  windowWidth-500, (windowWidth-500)*0.75);
+    offscreenBuffer.filter(POSTERIZE, 3);
+    image(offscreenBuffer, 0, 0,  windowWidth-500, (windowWidth-500)*0.75);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     pop();
     
     isBlinking = false;
     captions = "";
+<<<<<<< HEAD
     image(camFrame,0,0,1440, 900);
+=======
+    image(camFrame,0,0,windowWidth,windowHeight);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     drawInstructions();
   }
   
@@ -126,7 +160,11 @@ function draw() {
     isBlinking = true;
     drawBlinks();
     drawInstructions();
+<<<<<<< HEAD
     image(camFrame,0,0,1440, 900);
+=======
+    image(camFrame,0,0,windowWidth,windowHeight);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     if (!soundPlayed) {
       shutterSound.play();
       soundPlayed = true;
@@ -142,15 +180,15 @@ function draw() {
     image(photo, 0, 0, width-100, height);
     drawCaption();
     drawInstructions();
-    saveBtn = createButton('Save')
-    saveBtn.position(width/2+30,height/2+320);
-    saveBtn.mousePressed(savePoem);
+    // saveBtn = createButton('Save')
+    // saveBtn.position(width/2+30,height/2+320);
+    // saveBtn.mousePressed(savePoem);
   }
 }
 
-function savePoem(){
-  saveCanvas('PoeticaLens', 'png');
-}
+// function savePoem(){
+//   saveCanvas('PoeticaLens', 'png');
+// }
 
 function connectBtnClick() {
   if (!port.opened()) {
@@ -174,16 +212,37 @@ function donePredicting(results) {
 }
 
 function drawCaption() {
+<<<<<<< HEAD
   fill(0, 150);
   rect(0,0,width/2,height);
 
+=======
+  let textX = 20; // X position of the text
+  let textY = height / 2; // Y position of the text
+
+  // Get the bounding box of the text
+  let bbox = fontPoem.textBounds(captions, textX, textY, 35);
+
+  // Adjust the position of the red rectangle based on the bounding box
+  let rectX = 100; 
+  let rectY = 100; 
+  let rectWidth = width/2; 
+  let rectHeight = height; 
+
+  fill(0, 150);
+  // rect(rectX, rectY, rectWidth, rectHeight);
+  rect(0,0,width/2,height);
+  
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   fill(255);
   noStroke();
-  textSize(35);
+
+  textSize(45);
   textAlign(CENTER,CENTER);
   textWrap(WORD);
   textFont(fontPoem);
   text(captions, 20, height/2, width/2);
+
 }
 
 function drawBlinks() {
@@ -191,10 +250,17 @@ function drawBlinks() {
 
   if (isBlinking) {
     push();
+<<<<<<< HEAD
     translate(windowWidth-200, 0);
     scale(-1, 1);
     offscreenBuffer.filter(THRESHOLD, 0.5);
     image(offscreenBuffer, 0, 0, windowWidth-200, (windowWidth-200)*0.75);
+=======
+    translate(windowWidth-500, 0);
+    scale(-1, 1);
+    offscreenBuffer.filter(THRESHOLD, 0.5);
+    image(offscreenBuffer, 0, 0,  windowWidth-500, (windowWidth-500)*0.75);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
     pop();
     
     // Draw the blinking effect
@@ -212,27 +278,39 @@ function drawBlinks() {
     }
 
     fill(random(255), random(255), random(255));
-    textSize(25);
+    textSize(50);
     textAlign(CENTER);
     textFont(fontDigital);
-    text('Starting prediction,', width / 2-150, height / 2 - 15);
-    text('this might take a bit', width / 2-160, height / 2 + 35);
+    text('Starting prediction,', width / 2-100, height / 2 - 45);
+    text('this might take a bit', width / 2-100, height / 2 + 55);
   }
 } 
 function drawInstructions(){
   fill(0,50);
   noStroke();
+<<<<<<< HEAD
   rect(0,height-80,width,80);
+=======
+  rect(0,height-120,width,150);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   fill(255);
   textAlign(LEFT);
   textFont(fontDigital);
-  textSize(20);
+  textSize(35);
   if(state == OUTCOME){
+<<<<<<< HEAD
     text("Insturction: Want another shot?", 100,height-35);
     text("Press any key: Back to the camera",360,height-10)
   }else{
     text("Instruction: Click the shutter to capture a moment,",100,height-35);
     text("Await the alchemy for about 15 heartbeats...",360,height-10)
+=======
+    text("Insturction: Want another shot?",200,height-70);
+    text("Press the shutter ONCE again: Back to the camera",460,height-30);
+  }else{
+    text("Instruction: Click the shutter ONCE to capture a moment,",200,height-70);
+    text("Await the alchemy for about 15 heartbeats...",460,height-30);
+>>>>>>> 54901efba0c5bfa5f25f0e0d9b0fef382937cc97
   }  
 }
 
